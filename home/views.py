@@ -10,7 +10,7 @@ from .utilities import setup_cassiopeia
 class Home(View):
     def get(self, request):
         setup_cassiopeia(region="LAN")
-        summoner = riotapi.get_summoner_by_name("RaiCedes")
+        summoner = riotapi.get_summoner_by_name("Kyde")
         champion_mastery = summoner.top_champion_masteries()[0]
         champion = champion_mastery.champion
         if not Summoner.objects.filter(name=summoner.name).exists():
