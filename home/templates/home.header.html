@@ -1,15 +1,15 @@
 <div id="header" class="header"
-     style="background-image: url('http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Anivia_5.jpg');">
+     style="background-image: url('{{ champion.skins.0.splash }}');">
     <div class="container">
         <div class="col-sm-6">
             <div class="intro-message">
                 {#                        champion name#}
-                <h1>{{ champion.name }}Anivia</h1>
-                <h3>{{ champion.title }}The Cryophoenix</h3>
+                <h1>{{ champion.name }}</h1>
+                <h3>{{ champion.title }}</h3>
                 <hr class="intro-divider">
                 <ul class="list-inline intro-buttons">
                     <li>
-                        <a href="http://gameinfo.na.leagueoflegends.com/en/game-info/champions/anivia/"
+                        <a href="http://gameinfo.na.leagueoflegends.com/en/game-info/champions/{{ champion.name|lower }}/"
                            class="btn btn-default btn-lg"><span class="network-name">Champion Page</span></a>
                     </li>
             </div>

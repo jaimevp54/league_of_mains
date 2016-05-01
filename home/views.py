@@ -27,7 +27,9 @@ class Home(View):
         champion_data.save()
 
         context = {
-            'hola': 1
+            'summoner': summoner,
+            'champion': champion,
+            'champion_data': champion_data,
         }
 
         return render(request, 'home.html', context=context)

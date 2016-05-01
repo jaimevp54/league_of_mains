@@ -67,3 +67,4 @@ def setup_cassiopeia(region="NA", print_calls=True, key="development"):
         key = os.environ["PROD_KEY"]
         riotapi.set_rate_limits((3000, 10), (180000, 600))
     riotapi.set_api_key(key)
+    riotapi.set_locale(locale="en_US")
