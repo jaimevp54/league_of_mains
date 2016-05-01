@@ -1,0 +1,96 @@
+<div class="content-section-a">
+    <div class="container">
+        <h2>Statistics of {{ summoner.name }} with {{ champion.name }}</h2>
+        <div class="col-md-6">
+            <table class="table table-striped table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-6 col-xs-8">Games</td>
+                    <td class="text-muted">{{ champion_data.games }}</td>
+                </tr>
+                <tr>
+                    <td>Wins/Losses</td>
+                    <td class="text-muted">{{ champion_data.wins }} / {{ champion_data.losses }}</td>
+                </tr>
+                <tr>
+                    <td>Kills</td>
+                    <td class="text-muted">{{ champion_data.kills }}</td>
+                </tr>
+                <tr>
+                    <td>Deaths</td>
+                    <td class="text-muted">{{ champion_data.deaths }}</td>
+                </tr>
+                <tr>
+                    <td>Assists</td>
+                    <td class="text-muted">{{ champion_data.assists }}</td>
+                </tr>
+                <tr>
+                    <td>KDA</td>
+                    <td class="text-muted">{{ champion_data.kda }}</td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td class="text-muted">{{ champion_data.cs_count }}</td>
+                </tr>
+                <tr>
+                    <td>Largest killing spree</td>
+                    <td class="text-muted">{{ champion_data.largest_killing_spree }}</td>
+                </tr>
+                <tr>
+                    <td>Largest CS count</td>
+                    <td class="text-muted">{{ champion_data.largest_cs_count }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-6 col-xs-8">First blood</td>
+                    <td class="text-muted">{{ champion_data.first_blood_count }}</td>
+                </tr>
+                <tr>
+                    <td>Turrets destroyed</td>
+                    <td class="text-muted">{{ champion_data.turret_kills }}</td>
+                </tr>
+                <tr>
+                    <td>Inhibitors destroyed</td>
+                    <td class="text-muted">{{ champion_data.inhibitor_kills }}</td>
+                </tr>
+                <tr>
+                    <td>Wards placed</td>
+                    <td class="text-muted">{{ champion_data.wards_placed }}</td>
+                </tr>
+                <tr>
+                    <td>Wards destroyed</td>
+                    <td class="text-muted">{{ champion_data.ward_kills }}</td>
+                </tr>
+                <tr>
+                    <td>Pentakills</td>
+                    <td class="text-muted">{{ champion_data.penta_kills }}</td>
+                </tr>
+                <tr>
+                    <td>Quadrakills</td>
+                    <td class="text-muted">{{ champion_data.quadra_kills }}</td>
+                </tr>
+                <tr>
+                    <td>Triplekills</td>
+                    <td class="text-muted">{{ champion_data.triple_kills }}</td>
+                </tr>
+                <tr>
+                    <td>Double kills</td>
+                    <td class="text-muted">{{ champion_data.double_kills }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
