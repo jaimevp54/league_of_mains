@@ -16,8 +16,9 @@
           type="text/css">
 </head>
 <body>
+{% include 'base.navbar.html' %}
 {% block content %}{% endblock content %}
-
+{% include 'base.footer.html' %}
 <!-- jQuery -->
 <script src="{% static 'home/js/jquery.js' %}"></script>
 <!-- Bootstrap Core JavaScript -->

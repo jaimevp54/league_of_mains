@@ -169,3 +169,8 @@ footer {
 p.copyright {
     margin: 15px 0 0;
 }
+
+.table-header {
+  border-radius: 25px;
+  background-color: rgba(20,20,20,0.5);
+}
