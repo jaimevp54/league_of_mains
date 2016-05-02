@@ -1,6 +1,5 @@
 from django.db import models
-
-
+from django.utils import timezone
 from cassiopeia.type.api.exception import APIError
 
 
@@ -84,6 +83,7 @@ class ChampionData(models.Model):
             self.largest_cs_count = max(self.largest_cs_count, participant.stats.cs)
 
         self.losses = self.games - self.wins
+        self.last_update = timezone.now()
 
     @classmethod
     def create(cls, summoner, champion):
