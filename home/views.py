@@ -4,7 +4,7 @@ from .forms import SummonerSearch
 from .models import Summoner, ChampionData
 
 from cassiopeia import riotapi
-from .utilities import setup_cassiopeia
+from .utilities import setup_cassiopeia, get_related_videos
 
 
 # Create your views here.
@@ -42,6 +42,7 @@ class SummonerMain(View):
                 'summoner': summoner,
                 'champion': champion,
                 'champion_data': champion_data,
+                'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6)
             }
 
             return render(request, 'summoner.html', context=context)

@@ -1,0 +1,10 @@
+<div class="row"><h4 class="text-muted">Youtube</h4></div>
+<div class="row">
+    {% for id in related_videos_ids %}
+        <iframe frameborder="1" width="354" height="200"
+                src="http://www.youtube.com/embed/{{ id }}?autoplay=0">
+        </iframe>
+    {% endfor %}
+
+
+</div>
