@@ -25,7 +25,6 @@ class Home(View):
         return handle_contact_form(request)
 
 
-
 class SummonerMain(View):
     def get(self, request, region, summoner_name):
         setup_cassiopeia(region=region)
@@ -63,7 +62,7 @@ class SummonerMain(View):
             summoner_b_name = form.cleaned_data['summoner_b_name']
             return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
                             summoner_b_name=summoner_b_name)
-        handle_contact_form(request)
+        return handle_contact_form(request)
 
 
 class CompareSummoners(View):
@@ -97,11 +96,18 @@ class CompareSummoners(View):
         }
         return render(request, 'compare.html', context=context)
 
+    def post(self, request):
+        return handle_contact_form()
+
+
+class Notification(View):
+    def get(self, request):
+        return render(request, 'notification.html')
+
 
 def handle_contact_form(request):
     form = ContactForm(request.POST)
     if form.is_valid():
-        print("is valid")
         summoner_name = form.cleaned_data['contact_summoner_name']
         region = form.cleaned_data['contact_region']
         email = form.cleaned_data['contact_email']
@@ -119,6 +125,10 @@ def handle_contact_form(request):
         msg = EmailMessage(subject, message, to=recipient_list)
         msg.content_subtype = 'html'
         msg.send()
-        return redirect("/")
+        context = {
+            'contact_us_success': True,
+            'from_url': request.META['HTTP_REFERER'],
+        }
+        return render(request, 'notification.html', context=context)
         # return render(request, "error", {'form': form})
 
