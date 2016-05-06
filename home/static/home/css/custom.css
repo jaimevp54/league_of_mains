@@ -17,7 +17,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
 }
 
@@ -39,7 +39,7 @@ h6 {
     background-position: center;
 }
 
-.header-container{
+.header-container {
     background-size: cover;
     background-position: center;
 }
@@ -52,9 +52,9 @@ h6 {
 
 .intro-message > h1 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 5em;
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
 #intro-divider-home {
@@ -63,12 +63,12 @@ h6 {
 
 .intro-divider {
     border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    white-space:nowrap;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
 }
 
 @media (max-width: 767px) {
@@ -124,11 +124,21 @@ h6 {
     border-top: 3px solid #e7e7e7;
 }
 
+@media only screen and (min-width: 992px) {
+    .banner {
+        background: url(../img/tresh-chibi.jpg) right no-repeat;;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .banner {
+        background: none;
+    }
+}
+
 .banner {
-    padding: 100px 0;
-    color: #f8f8f8;
-    background: url(../img/banner-bg.jpg) no-repeat center center;
-    background-size: cover;
+    padding: 50px 0;
+    background-size: contain;
 }
 
 .banner h2 {
@@ -185,6 +195,17 @@ p.copyright {
     background-color: rgba(20, 20, 20, 0.5);
 }
 
-.flip-x{
-   transform: scaleX(-1);
+.flip-x {
+    transform: scaleX(-1);
+}
+
+.margin-top-100 {
+    margin-top: 100px;
+}
+
+.margin-bottom-100 {
+    margin-bottom: 100px;
+}
+#success-banner {
+    padding: 110px;
 }

@@ -19,9 +19,22 @@
 
 {% include 'base.navbar.html' %}
 
-{% block content %}{% endblock content %}
+<div id="success-banner" class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <div class="margin-top-100 margin-bottom-100">
+                    <h1>Success!</h1>
+                    {% if contact_us_success %}
+                        <p>Your message has been sent.</p>
+                    {% endif %}
 
-{% include 'base.about-us.html' %}
+                    <p>Now you can go to the <a href="{% url 'home' %}">Home</a> page or <a href="{{ from_url }}">go back</a> to where you came from.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% include 'base.footer.html' %}
 
