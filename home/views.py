@@ -93,7 +93,9 @@ class CompareSummoners(View):
             'champion_a': champion_a,
             'champion_b': champion_b,
             'champion_data_a': champion_data_a,
+            'champion_data_a_averages': champion_data_a.averages,
             'champion_data_b': champion_data_b,
+            'champion_data_b_averages': champion_data_b.averages,
         }
         return render(request, 'compare.html', context=context)
 
