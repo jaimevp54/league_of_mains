@@ -71,7 +71,7 @@ h6 {
     white-space:nowrap;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .intro-message {
         padding-bottom: 15%;
     }
@@ -133,7 +133,7 @@ h6 {
 
 .banner h2 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 3em;
 }
 
@@ -146,17 +146,17 @@ h6 {
     margin-top: 0;
 }
 
-@media(max-width:1199px) {
+@media (max-width: 1199px) {
     ul.banner-social-buttons {
         float: left;
         margin-top: 15px;
     }
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .banner h2 {
         margin: 0;
-        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
         font-size: 3em;
     }
 
@@ -181,6 +181,10 @@ p.copyright {
 }
 
 .table-header {
-  border-radius: 25px;
-  background-color: rgba(20,20,20,0.5);
+    border-radius: 25px;
+    background-color: rgba(20, 20, 20, 0.5);
+}
+
+.flip-x{
+   transform: scaleX(-1);
 }

@@ -1,7 +1,8 @@
 {% load staticfiles %}
 <div id="header" class="header">
-    <div class="container header-container col-md-6" style="background-image: url('{{ champion_a.skins.0.splash }}');">
-        <div class="col-sm-6">
+    <div  class="container header-container flip-x col-md-6"
+         style="background:linear-gradient( -90deg,rgba(255, 255, 255,0), rgba(0, 0, 0,1)),url('{{ champion_a.skins.0.splash }}') center;">
+        <div class="col-sm-6 flip-x">
             <div class="intro-message ">
                 {#                        champion name#}
                 <h1>{{ champion_a.name }}</h1>
@@ -51,9 +52,10 @@
         </div>
     </div>
 
-    <div class="container header-container col-md-6" style="background-image: url('{{ champion_b.skins.0.splash }}');">
+    <div class="container header-container col-md-6"
+         style=" background:linear-gradient(-90deg,rgba(255, 255, 255,0), rgba(0, 0, 0,1)),url('{{ champion_b.skins.0.splash }}') center;">
         <div class="col-sm-6">
-            <div class="intro-message ">
+            <div class="intro-message">
                 {#                        champion name#}
                 <h1>{{ champion_b.name }}</h1>
                 <h3>{{ champion_b.title }}</h3>
