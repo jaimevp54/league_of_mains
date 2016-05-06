@@ -48,6 +48,7 @@ class SummonerMain(View):
             'summoner': summoner,
             'champion': champion,
             'champion_data': champion_data,
+            'champion_data_averages': champion_data.averages,
             'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6),
             'region': region,
         }
@@ -92,7 +93,9 @@ class CompareSummoners(View):
             'champion_a': champion_a,
             'champion_b': champion_b,
             'champion_data_a': champion_data_a,
+            'champion_data_a_averages': champion_data_a.averages,
             'champion_data_b': champion_data_b,
+            'champion_data_b_averages': champion_data_b.averages,
         }
         return render(request, 'compare.html', context=context)
 
@@ -131,4 +134,3 @@ def handle_contact_form(request):
         }
         return render(request, 'notification.html', context=context)
         # return render(request, "error", {'form': form})
-
