@@ -56,6 +56,24 @@ class ChampionData(models.Model):
     def kda(self):
         return round((self.kills + self.assists) / (self.deaths if self.deaths else 1), 3)
 
+    @property
+    def averages(self):
+        averages = ChampionData()
+        averages.kills = self.kills / self.games
+        averages.deaths = self.deaths / self.games
+        averages.assists = self.assists / self.games
+        averages.cs_count = self.cs_count / self.games
+        averages.first_blood_count = self.first_blood_count / self.games
+        averages.turret_kills = self.turret_kills / self.games
+        averages.inhibitor_kills = self.inhibitor_kills / self.games
+        averages.wards_placed = self.wards_placed / self.games
+        averages.ward_kills = self.ward_kills / self.games
+        averages.penta_kills = self.penta_kills / self.games
+        averages.quadra_kills = self.quadra_kills / self.games
+        averages.triple_kills = self.triple_kills / self.games
+        averages.double_kills = self.double_kills / self.games
+        return averages
+
     def update(self, summoner, champion, champion_mastery):
 
         match_list = summoner.match_list(champions=champion, begin_time=self.last_update)

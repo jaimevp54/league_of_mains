@@ -48,6 +48,7 @@ class SummonerMain(View):
             'summoner': summoner,
             'champion': champion,
             'champion_data': champion_data,
+            'champion_data_averages': champion_data.averages,
             'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6),
             'region': region,
         }
@@ -131,4 +132,3 @@ def handle_contact_form(request):
         }
         return render(request, 'notification.html', context=context)
         # return render(request, "error", {'form': form})
-
