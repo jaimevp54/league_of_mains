@@ -92,9 +92,10 @@
             </table>
         </div>
         <form class="form" action="" method="post">
+            {% csrf_token %}
             <div class="input-group pull-right col-xs-12 col-md-4">
                 <div class="input-group-addon">Compare {{ summoner.name }} with:</div>
-                <input class="form-control" type="text" name="to_compare" placeholder="Summoner name">
+                <input class="form-control" type="text" name="summoner_b_name" placeholder="Summoner name">
                 <div class="input-group-btn">
                     <button class="btn-primary btn">Compare</button>
                 </div>

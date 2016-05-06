@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .forms import SummonerSearch, CompareSummoners
+from .forms import SummonerSearchForm, CompareSummonersForm
 from .models import Summoner, ChampionData
 
 from cassiopeia import riotapi
@@ -13,7 +13,7 @@ class Home(View):
         return render(request, 'home.html')
 
     def post(self, request):
-        form = SummonerSearch(request.POST)
+        form = SummonerSearchForm(request.POST)
         if form.is_valid():
             summoner_name = form.cleaned_data['summoner_name']
             region = form.cleaned_data['region']
@@ -44,10 +44,20 @@ class SummonerMain(View):
             'summoner': summoner,
             'champion': champion,
             'champion_data': champion_data,
-            'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6)
+            'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6),
+            'region': region,
         }
 
         return render(request, 'summoner.html', context=context)
+
+    def post(self, request, region, summoner_name):
+        form = CompareSummonersForm(request.POST)
+        if form.is_valid():
+            region = region
+            summoner_a_name = summoner_name
+            summoner_b_name = form.cleaned_data['summoner_b_name']
+        return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
+                        summoner_b_name=summoner_b_name)
 
 
 class CompareSummoners(View):
