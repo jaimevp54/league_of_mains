@@ -1,6 +1,8 @@
+from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
+from django.template.loader import get_template
 from django.views.generic import View
-from .forms import SummonerSearchForm, CompareSummonersForm
+from .forms import SummonerSearchForm, CompareSummonersForm, ContactForm
 from .models import Summoner, ChampionData
 
 from cassiopeia import riotapi
@@ -19,6 +21,9 @@ class Home(View):
             region = form.cleaned_data['region']
 
             return redirect('summonerMain', summoner_name=summoner_name, region=region)
+
+        return handle_contact_form(request)
+
 
 
 class SummonerMain(View):
@@ -56,8 +61,9 @@ class SummonerMain(View):
             region = region
             summoner_a_name = summoner_name
             summoner_b_name = form.cleaned_data['summoner_b_name']
-        return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
-                        summoner_b_name=summoner_b_name)
+            return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
+                            summoner_b_name=summoner_b_name)
+        handle_contact_form(request)
 
 
 class CompareSummoners(View):
@@ -90,3 +96,29 @@ class CompareSummoners(View):
             'champion_data_b': champion_data_b,
         }
         return render(request, 'compare.html', context=context)
+
+
+def handle_contact_form(request):
+    form = ContactForm(request.POST)
+    if form.is_valid():
+        print("is valid")
+        summoner_name = form.cleaned_data['contact_summoner_name']
+        region = form.cleaned_data['contact_region']
+        email = form.cleaned_data['contact_email']
+        subject = "Contact Form - " + (summoner_name if summoner_name else email)
+        message = form.cleaned_data['contact_message']
+        context = {
+            'summoner_name': summoner_name,
+            'region': region,
+            'email': email,
+            'message': message
+        }
+
+        message = get_template('contact.email.html').render(context=context)
+        recipient_list = ['leagueofmains.contact@gmail.com']
+        msg = EmailMessage(subject, message, to=recipient_list)
+        msg.content_subtype = 'html'
+        msg.send()
+        return redirect("/")
+        # return render(request, "error", {'form': form})
+

@@ -1,0 +1,63 @@
+<h3>Send us a Message</h3>
+<form name="sentMessage" action="" id="contactForm" method="post" novalidate>
+    {% csrf_token %}
+    <div class="control-group form-group">
+
+        <label>Email Address:</label>
+        <input type="email" class="form-control" name="contact_email" required
+               data-validation-required-message="Please enter your email address.">
+
+    </div>
+    <div class="control-group form-group">
+        <label>Summoner name</label>
+        <div class="input-group">
+            <input name="contact_summoner_name" type="text" class="form-control">
+            <div class="input-group-btn">
+                <select name="contact_region" class="btn btn-primary">
+                    <optgroup label="Europe">
+                        <option value="EUNE">EUNE</option>
+                        <option value="EUW">EUW</option>
+                        <option value="RU">RU</option>
+                        <option value="TR">TR</option>
+                    </optgroup>
+                    <optgroup label="America">
+                        <option value="NA">NA</option>
+                        <option value="BR">BR</option>
+                        <option value="LAN">LAN</option>
+                        <option value="LAS">LAS</option>
+                    </optgroup>
+                    <optgroup label="Asia & Oceania">
+                        <option value="JP">JP</option>
+                        <option value="KR">KR</option>
+                        <option value="OCE">OCE</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Message:</label>
+                <textarea rows="5" cols="100" class="form-control" name="contact_message" required
+                          data-validation-required-message="Please enter your message" maxlength="999"
+                          style="resize:none"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+
+{#<ul class="list-inline banner-social-buttons hidden">#}
+{#    <li>#}
+{#        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i#}
+{#                class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>#}
+{#    </li>#}
+{#    <li>#}
+{#        <a href="https://github.com/IronSummitMedia/startbootstrap"#}
+{#           class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span#}
+{#                class="network-name">Github</span></a>#}
+{#    </li>#}
+{#    <li>#}
+{#        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span#}
+{#                class="network-name">Linkedin</span></a>#}
+{#    </li>#}
+{#</ul>#}
