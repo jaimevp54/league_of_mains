@@ -12,39 +12,42 @@ class Home(View):
     def get(self, request):
         return render(request, 'home.html')
 
-
-class SummonerMain(View):
-    def get(self, request):
-        return redirect('home')
-
     def post(self, request):
         form = SummonerSearch(request.POST)
         if form.is_valid():
-            setup_cassiopeia(region=form.cleaned_data['region'])
-            summoner = riotapi.get_summoner_by_name(form.cleaned_data['summoner_name'])
-            champion_mastery = summoner.top_champion_masteries()[0]
-            champion = champion_mastery.champion
-            if not Summoner.objects.filter(name=summoner.name).exists():
-                s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id)
-                s.save()
-            else:
-                s = Summoner.objects.filter(name=summoner.name)[0]
+            summoner_name = form.cleaned_data['summoner_name']
+            region = form.cleaned_data['region']
 
-            if not ChampionData.objects.filter(summoner=s, name=champion.name).exists():
-                champion_data = ChampionData.create(s, champion)
-            else:
-                champion_data = ChampionData.objects.filter(summoner=s, name=champion.name)[0]
-            champion_data.update(summoner, champion, champion_mastery)
-            champion_data.save()
+            return redirect('summonerMain', summoner_name=summoner_name, region=region)
 
-            context = {
-                'summoner': summoner,
-                'champion': champion,
-                'champion_data': champion_data,
-                'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6)
-            }
 
-            return render(request, 'summoner.html', context=context)
+class SummonerMain(View):
+    def get(self, request, region, summoner_name):
+        setup_cassiopeia(region=region)
+        summoner = riotapi.get_summoner_by_name(summoner_name)
+        champion_mastery = summoner.top_champion_masteries()[0]
+        champion = champion_mastery.champion
+        if not Summoner.objects.filter(name=summoner.name).exists():
+            s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id)
+            s.save()
+        else:
+            s = Summoner.objects.filter(name=summoner.name)[0]
+
+        if not ChampionData.objects.filter(summoner=s, name=champion.name).exists():
+            champion_data = ChampionData.create(s, champion)
+        else:
+            champion_data = ChampionData.objects.filter(summoner=s, name=champion.name)[0]
+        champion_data.update(summoner, champion, champion_mastery)
+        champion_data.save()
+
+        context = {
+            'summoner': summoner,
+            'champion': champion,
+            'champion_data': champion_data,
+            'related_videos_ids': get_related_videos('League of legends ' + champion.name, count=6)
+        }
+
+        return render(request, 'summoner.html', context=context)
 
 
 class CompareSummoners(View):
