@@ -39,6 +39,11 @@ h6 {
     background-position: center;
 }
 
+.header-container{
+    background-size: cover;
+    background-position: center;
+}
+
 .intro-message {
     position: relative;
     padding-top: 20%;
@@ -49,16 +54,17 @@ h6 {
     margin: 0;
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
     font-size: 5em;
+    white-space:nowrap;
 }
 
 .intro-divider {
-    width: 400px;
     border-top: 1px solid #f8f8f8;
     border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 
 .intro-message > h3 {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    white-space:nowrap;
 }
 
 @media(max-width:767px) {

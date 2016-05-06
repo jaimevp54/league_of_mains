@@ -12,6 +12,16 @@ class Summoner(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_summoner(cls, summoner):
+        if not Summoner.objects.filter(name=summoner.name).exists():
+            s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id)
+            s.save()
+        else:
+            s = Summoner.objects.filter(name=summoner.name)[0]
+
+        return s
+
 
 class ChampionData(models.Model):
     summoner = models.ForeignKey(Summoner)
@@ -42,6 +52,7 @@ class ChampionData(models.Model):
     # time_played = models.DurationField(default=timedelta.min, editable=True)
     last_update = models.DateTimeField(auto_now_add=True)
 
+    @property
     def kda(self):
         return round((self.kills + self.assists) / (self.deaths if self.deaths else 1), 3)
 
@@ -58,9 +69,10 @@ class ChampionData(models.Model):
             try:
                 match = match_reference.match(include_timeline=False)
             except APIError as e:
+
                 continue
             for p in match.participants:
-                if p.summoner_name == summoner.name:
+                if p.summoner_id == summoner.id:
                     participant = p
                     break
 
@@ -92,6 +104,17 @@ class ChampionData(models.Model):
             name=champion.name,
             game_id=champion.id,
         )
+        return champion_data
+
+    @classmethod
+    def get_champion_data(cls, summoner, champion, champion_mastery):
+        s = Summoner.get_summoner(summoner)
+        if not ChampionData.objects.filter(summoner=s, name=champion.name).exists():
+            champion_data = ChampionData.create(s, champion)
+        else:
+            champion_data = ChampionData.objects.filter(summoner=s, name=champion.name)[0]
+        champion_data.update(summoner, champion, champion_mastery)
+        champion_data.save()
         return champion_data
 
     def __str__(self):

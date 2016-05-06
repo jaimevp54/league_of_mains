@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .forms import SummonerSearch
+from .forms import SummonerSearch, CompareSummoners
 from .models import Summoner, ChampionData
 
 from cassiopeia import riotapi
@@ -18,7 +18,6 @@ class SummonerMain(View):
         return redirect('home')
 
     def post(self, request):
-        print(request.POST)
         form = SummonerSearch(request.POST)
         if form.is_valid():
             setup_cassiopeia(region=form.cleaned_data['region'])
@@ -46,3 +45,35 @@ class SummonerMain(View):
             }
 
             return render(request, 'summoner.html', context=context)
+
+
+class CompareSummoners(View):
+    def get(self, request, region, summoner_a_name, summoner_b_name):
+        setup_cassiopeia(region=region)
+
+        summoner_a = riotapi.get_summoner_by_name(summoner_a_name)
+        champion_mastery_a = summoner_a.top_champion_masteries()[0]
+        champion_a = champion_mastery_a.champion
+
+        summoner_b = riotapi.get_summoner_by_name(summoner_b_name)
+        champion_mastery_b = summoner_b.top_champion_masteries()[0]
+        champion_b = champion_mastery_b.champion
+
+        champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a)
+        champion_data_b = ChampionData.get_champion_data(summoner_b, champion_b, champion_mastery_b)
+
+        champion_data_a.win_percent = int((champion_data_a.wins / champion_data_a.games) * 100)
+        champion_data_b.win_percent = int((champion_data_b.wins / champion_data_b.games) * 100)
+
+        champion_data_a.kda_percent = int(champion_data_a.kda / (champion_data_a.kda + champion_data_b.kda) * 100)
+        champion_data_b.kda_percent = 100 - champion_data_a.kda_percent
+
+        context = {
+            'summoner_a': summoner_a,
+            'summoner_b': summoner_b,
+            'champion_a': champion_a,
+            'champion_b': champion_b,
+            'champion_data_a': champion_data_a,
+            'champion_data_b': champion_data_b,
+        }
+        return render(request, 'compare.html', context=context)
