@@ -40,6 +40,7 @@ class SummonerMain(View):
                     'from_url': from_url,
                 }
                 return render(request, 'notification.html', context=context)
+            raise e
 
         champion_mastery = summoner.top_champion_masteries()[0]
         champion = champion_mastery.champion
@@ -95,7 +96,6 @@ class CompareSummoners(View):
                     'from_url': from_url,
                 }
                 return render(request, 'notification.html', context=context)
-
         champion_mastery_a = summoner_a.top_champion_masteries()[0]
         champion_mastery_b = summoner_b.top_champion_masteries()[0]
 
@@ -104,6 +104,14 @@ class CompareSummoners(View):
 
         champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a)
         champion_data_b = ChampionData.get_champion_data(summoner_b, champion_b, champion_mastery_b)
+
+        if not champion_data_a.games or not champion_data_b.games:
+            from_url = request.META['HTTP_REFERER'] if "HTTP_REFERER" in request.META else ""
+            context = {
+                'cant_compare_summoners': True,
+                'from_url': from_url,
+            }
+            return render(request, 'notification.html', context=context)
 
         champion_data_a.win_percent = int((champion_data_a.wins / champion_data_a.games) * 100)
         champion_data_b.win_percent = int((champion_data_b.wins / champion_data_b.games) * 100)

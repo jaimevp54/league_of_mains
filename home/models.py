@@ -58,6 +58,8 @@ class ChampionData(models.Model):
 
     @property
     def averages(self):
+        if not self.games:
+            return None
         averages = ChampionData()
         averages.kills = self.kills / self.games
         averages.deaths = self.deaths / self.games
