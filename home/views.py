@@ -120,6 +120,7 @@ class CompareSummoners(View):
             'champion_data_a_averages': champion_data_a.averages,
             'champion_data_b': champion_data_b,
             'champion_data_b_averages': champion_data_b.averages,
+            'region': region,
         }
         return render(request, 'compare.html', context=context)
 
