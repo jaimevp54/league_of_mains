@@ -1,46 +1,33 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<!doctype html>
-<html>
-<head>
-    <title>{% block title %}{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="author" content="Jaime R. Viñas">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static 'home/css/bootstrap.css' %}" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="{% static 'home/css/custom.css' %}" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="{% static 'home/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
-          type="text/css">
-</head>
-<body>
-
-{% include 'base.navbar.html' %}
-
-<div id="success-banner" class="banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-2">
-                <div class="margin-top-100 margin-bottom-100">
-                    <h1>Success!</h1>
-                    {% if contact_us_success %}
-                        <p>Your message has been sent.</p>
-                    {% endif %}
-
-                    <p>Now you can go to the <a href="{% url 'home' %}">Home</a> page or <a href="{{ from_url }}">go back</a> to where you came from.</p>
+{% block content %}
+    <div id="success-banner" class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-2">
+                    <div class="margin-top-100 margin-bottom-100">
+                        {% if contact_us_success %}
+                            <h1>Success!</h1>
+                            <p>Your message has been sent.</p>
+                        {% elif 404_summoner_not_found %}
+                            <h1 class="text-warning">Ups! <label class="balloon-a">404</label></h1>
+                            <p>The summoner <label class="text-warning">{{ summoner_name }}</label> could not be found in the region <label class="text-warning">{{ region }}</label></p>
+                            <ul>
+                                <li>Did you mistype the summoner name?</li>
+                                <li>Did you select the wrong region?</li>
+                            </ul>
+                        {% endif %}
+                        <br>
+                        <p>You can go to the <a href="{% url 'home' %}">Home</a> page or <a href="{{ from_url }}">go
+                            back</a> to where you came from.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+{% endblock %}
 
-{% include 'base.footer.html' %}
+{% block about_us %}
 
-<!-- jQuery -->
-<script src="{% static 'home/js/jquery.js' %}"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="{% static 'home/js/bootstrap.min.js' %}"></script>
-</body>
-</html>
+{% endblock %}

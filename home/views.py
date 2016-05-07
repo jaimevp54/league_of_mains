@@ -1,10 +1,12 @@
 from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
+
 from django.views.generic import View
 from .forms import SummonerSearchForm, CompareSummonersForm, ContactForm
 from .models import Summoner, ChampionData
 
+from cassiopeia.type.api.exception import APIError
 from cassiopeia import riotapi
 from .utilities import setup_cassiopeia, get_related_videos
 
@@ -19,16 +21,26 @@ class Home(View):
         if form.is_valid():
             summoner_name = form.cleaned_data['summoner_name']
             region = form.cleaned_data['region']
-
             return redirect('summonerMain', summoner_name=summoner_name, region=region)
-
         return handle_contact_form(request)
 
 
 class SummonerMain(View):
     def get(self, request, region, summoner_name):
         setup_cassiopeia(region=region)
-        summoner = riotapi.get_summoner_by_name(summoner_name)
+        try:
+            summoner = riotapi.get_summoner_by_name(summoner_name)
+        except APIError as e:
+            if e.error_code in [404]:
+                from_url = request.META['HTTP_REFERER'] if "HTTP_REFERER" in request.META else ""
+                context = {
+                    'summoner_name': summoner_name,
+                    'region': region,
+                    '404_summoner_not_found': True,
+                    'from_url': from_url,
+                }
+                return render(request, 'notification.html', context=context)
+
         champion_mastery = summoner.top_champion_masteries()[0]
         champion = champion_mastery.champion
         if not Summoner.objects.filter(name=summoner.name).exists():
@@ -69,13 +81,25 @@ class SummonerMain(View):
 class CompareSummoners(View):
     def get(self, request, region, summoner_a_name, summoner_b_name):
         setup_cassiopeia(region=region)
+        try:
+            summoner_a = riotapi.get_summoner_by_name(summoner_a_name)
+            summoner_b = riotapi.get_summoner_by_name(summoner_b_name)
+        except APIError as e:
+            if e.error_code in [404]:
+                summoner_name = summoner_a_name if ("by-name/" + summoner_a_name) in e.message else summoner_b_name
+                from_url = request.META['HTTP_REFERER'] if "HTTP_REFERER" in request.META else ""
+                context = {
+                    'summoner_name': summoner_name,
+                    'region': region,
+                    '404_summoner_not_found': True,
+                    'from_url': from_url,
+                }
+                return render(request, 'notification.html', context=context)
 
-        summoner_a = riotapi.get_summoner_by_name(summoner_a_name)
         champion_mastery_a = summoner_a.top_champion_masteries()[0]
-        champion_a = champion_mastery_a.champion
-
-        summoner_b = riotapi.get_summoner_by_name(summoner_b_name)
         champion_mastery_b = summoner_b.top_champion_masteries()[0]
+
+        champion_a = champion_mastery_a.champion
         champion_b = champion_mastery_b.champion
 
         champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a)
@@ -103,9 +127,8 @@ class CompareSummoners(View):
         return handle_contact_form()
 
 
-class Notification(View):
-    def get(self, request):
-        return render(request, 'notification.html')
+def error404(request):
+    return render(request, 'notification.html')
 
 
 def handle_contact_form(request):
