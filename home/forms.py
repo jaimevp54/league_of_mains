@@ -11,10 +11,7 @@ class CompareSummonersForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-    messages = {
-        'required': "This is a required field"
-    }
-    contact_summoner_name = forms.CharField()
-    contact_region = forms.CharField()
-    contact_email = forms.EmailField(error_messages={'required': messages['required']})
-    contact_message = forms.CharField(error_messages={'required': messages['required']})
+    contact_summoner_name = forms.CharField(required=False)
+    contact_region = forms.CharField(required=False)
+    contact_email = forms.EmailField()
+    contact_message = forms.CharField()

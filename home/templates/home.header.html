@@ -13,7 +13,7 @@
                 <form class="form" action="" method="post">
                     {% csrf_token %}
                     <div class="input-group col-md-6 col-md-offset-3">
-                        <input name="summoner_name" type="text" class="form-control" placeholder="Summoner name...">
+                        <input name="summoner_name" type="text" class="form-control" placeholder="Summoner name..." required>
                         <div class="input-group-btn">
                             <select name="region" class="btn btn-primary">
                                 <optgroup label="Europe">

@@ -1,17 +1,16 @@
 <h3>Send us a Message</h3>
-<form name="sentMessage" action="" id="contactForm" method="post" novalidate>
+<form name="sentMessage" action="" id="contactForm" method="post">
     {% csrf_token %}
     <div class="control-group form-group">
 
         <label>Email Address:</label>
-        <input type="email" class="form-control" name="contact_email" required
-               data-validation-required-message="Please enter your email address.">
+        <input type="email" class="form-control" name="contact_email" required>
 
     </div>
     <div class="control-group form-group">
         <label>Summoner name</label>
         <div class="input-group">
-            <input name="contact_summoner_name" type="text" class="form-control">
+            <input name="contact_summoner_name" type="text" class="form-control" placeholder="(Optional)">
             <div class="input-group-btn">
                 <select name="contact_region" class="btn btn-primary">
                     <optgroup label="Europe">
