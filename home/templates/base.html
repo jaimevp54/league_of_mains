@@ -17,13 +17,19 @@
 </head>
 <body>
 
-{% include 'base.navbar.html' %}
+{% block navbar %}
+    {% include 'base.navbar.html' %}
+{% endblock %}
 
 {% block content %}{% endblock content %}
 
-{% include 'base.about-us.html' %}
+{% block about_us %}
+    {% include 'base.about-us.html' %}
+{% endblock %}
 
-{% include 'base.footer.html' %}
+{% block footer %}
+    {% include 'base.footer.html' %}
+{% endblock %}
 
 <!-- jQuery -->
 <script src="{% static 'home/js/jquery.js' %}"></script>

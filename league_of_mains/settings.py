@@ -26,7 +26,7 @@ SECRET_KEY = '^xb@-z(x9c&^t71$9$4&%$j6dzu5^7k2)fop)(ifkw-3i9b52i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -110,3 +110,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leagueofmains.contact@gmail.com'
 EMAIL_HOST_PASSWORD = 'aniviabestchamp'	 # TODO hide this
 DEFAULT_FROM_EMAIL = 'League of Mains <leagueofmains.contact@gmail.com>'
+
+
+# Override 404 page
+handler404 = 'mysite.views.error404'
