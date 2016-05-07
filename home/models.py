@@ -54,7 +54,7 @@ class ChampionData(models.Model):
 
     @property
     def kda(self):
-        return round((self.kills + self.assists) / (self.deaths if self.deaths else 1), 3)
+        return round((self.kills + self.assists) / (self.deaths if self.deaths else 1), 2)
 
     @property
     def averages(self):
