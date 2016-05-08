@@ -17,11 +17,21 @@ class Home(View):
         return render(request, 'home.html')
 
     def post(self, request):
-        form = SummonerSearchForm(request.POST)
-        if form.is_valid():
-            summoner_name = form.cleaned_data['summoner_name']
-            region = form.cleaned_data['region']
+        search_form = SummonerSearchForm(request.POST)
+        compare_form = CompareSummonersForm(request.POST)
+
+        if search_form.is_valid() and "searchBtn" in search_form.data:
+            summoner_name = search_form.cleaned_data['summoner_name']
+            region = search_form.cleaned_data['region']
             return redirect('summonerMain', summoner_name=summoner_name, region=region)
+
+        if compare_form.is_valid() and "compareBtn" in compare_form.data:
+            summoner_a_name = compare_form.cleaned_data['summoner_a_name']
+            summoner_b_name = compare_form.cleaned_data['summoner_b_name']
+            region = compare_form.cleaned_data['region']
+            return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
+                            summoner_b_name=summoner_b_name)
+
         return handle_contact_form(request)
 
 

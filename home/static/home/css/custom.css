@@ -58,7 +58,7 @@ h6 {
 }
 
 #intro-divider-home {
-    width: 400px;
+    width: 60%;
 }
 
 .intro-divider {
@@ -207,6 +207,16 @@ p.copyright {
 .margin-bottom-100 {
     margin-bottom: 100px;
 }
+
 #success-banner {
     padding: 110px;
+}
+
+#compare form div {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.tab-content > .active.input-group{
+    display: table;
 }

@@ -7,7 +7,9 @@ class SummonerSearchForm(forms.Form):
 
 
 class CompareSummonersForm(forms.Form):
+    summoner_a_name = forms.CharField(required=False, label='First Summoner', max_length=100)
     summoner_b_name = forms.CharField(label='Second Summoner', max_length=100)
+    region = forms.CharField(required=False)
 
 
 class ContactForm(forms.Form):
