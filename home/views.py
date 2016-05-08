@@ -162,7 +162,11 @@ class CompareSummoners(View):
 
 
 def error404(request):
-    return render(request, 'notification.html')
+    return render(request, '404.html')
+
+
+def error500(request):
+    return render(request, '500.html')
 
 
 def handle_contact_form(request):

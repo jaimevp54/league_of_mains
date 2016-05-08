@@ -102,15 +102,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 STATIC_ROOT = os.path.join(DATA_DIR, 'static')
 
-
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leagueofmains.contact@gmail.com'
-EMAIL_HOST_PASSWORD = 'aniviabestchamp'	 # TODO hide this
+EMAIL_HOST_PASSWORD = 'aniviabestchamp'  # TODO hide this
 DEFAULT_FROM_EMAIL = 'League of Mains <leagueofmains.contact@gmail.com>'
 
-
 # Override 404 page
-handler404 = 'mysite.views.error404'
+handler404 = 'home.views.error404'
+handler500 = 'home.views.error500'
