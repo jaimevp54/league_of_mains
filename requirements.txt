@@ -1,0 +1,4 @@
+Django==1.9.2
+cassiopeia==0.1.1
+sqlalchemy==1.0.12
+virtualenvwrapper-win==1.2.1
