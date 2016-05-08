@@ -17,11 +17,21 @@ class Home(View):
         return render(request, 'home.html')
 
     def post(self, request):
-        form = SummonerSearchForm(request.POST)
-        if form.is_valid():
-            summoner_name = form.cleaned_data['summoner_name']
-            region = form.cleaned_data['region']
+        search_form = SummonerSearchForm(request.POST)
+        compare_form = CompareSummonersForm(request.POST)
+
+        if search_form.is_valid() and "searchBtn" in search_form.data:
+            summoner_name = search_form.cleaned_data['summoner_name']
+            region = search_form.cleaned_data['region']
             return redirect('summonerMain', summoner_name=summoner_name, region=region)
+
+        if compare_form.is_valid() and "compareBtn" in compare_form.data:
+            summoner_a_name = compare_form.cleaned_data['summoner_a_name']
+            summoner_b_name = compare_form.cleaned_data['summoner_b_name']
+            region = compare_form.cleaned_data['region']
+            return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
+                            summoner_b_name=summoner_b_name)
+
         return handle_contact_form(request)
 
 
@@ -40,21 +50,11 @@ class SummonerMain(View):
                     'from_url': from_url,
                 }
                 return render(request, 'notification.html', context=context)
+            raise e
 
         champion_mastery = summoner.top_champion_masteries()[0]
         champion = champion_mastery.champion
-        if not Summoner.objects.filter(name=summoner.name).exists():
-            s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id)
-            s.save()
-        else:
-            s = Summoner.objects.filter(name=summoner.name)[0]
-
-        if not ChampionData.objects.filter(summoner=s, name=champion.name).exists():
-            champion_data = ChampionData.create(s, champion)
-        else:
-            champion_data = ChampionData.objects.filter(summoner=s, name=champion.name)[0]
-        champion_data.update(summoner, champion, champion_mastery)
-        champion_data.save()
+        champion_data = ChampionData.get_champion_data(summoner, champion, champion_mastery, region)
 
         context = {
             'summoner': summoner,
@@ -68,11 +68,18 @@ class SummonerMain(View):
         return render(request, 'summoner.html', context=context)
 
     def post(self, request, region, summoner_name):
-        form = CompareSummonersForm(request.POST)
-        if form.is_valid():
+        search_form = SummonerSearchForm(request.POST)
+        compare_form = CompareSummonersForm(request.POST)
+
+        if search_form.is_valid():
+            summoner_name = search_form.cleaned_data['summoner_name']
             region = region
+            return redirect('summonerMain', summoner_name=summoner_name, region=region)
+
+        if compare_form.is_valid():
             summoner_a_name = summoner_name
-            summoner_b_name = form.cleaned_data['summoner_b_name']
+            summoner_b_name = compare_form.cleaned_data['summoner_b_name']
+            region = region
             return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
                             summoner_b_name=summoner_b_name)
         return handle_contact_form(request)
@@ -95,15 +102,23 @@ class CompareSummoners(View):
                     'from_url': from_url,
                 }
                 return render(request, 'notification.html', context=context)
-
+            raise e
         champion_mastery_a = summoner_a.top_champion_masteries()[0]
         champion_mastery_b = summoner_b.top_champion_masteries()[0]
 
         champion_a = champion_mastery_a.champion
         champion_b = champion_mastery_b.champion
 
-        champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a)
-        champion_data_b = ChampionData.get_champion_data(summoner_b, champion_b, champion_mastery_b)
+        champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a, region)
+        champion_data_b = ChampionData.get_champion_data(summoner_b, champion_b, champion_mastery_b, region)
+
+        if not champion_data_a.games or not champion_data_b.games:
+            from_url = request.META['HTTP_REFERER'] if "HTTP_REFERER" in request.META else ""
+            context = {
+                'cant_compare_summoners': True,
+                'from_url': from_url,
+            }
+            return render(request, 'notification.html', context=context)
 
         champion_data_a.win_percent = int((champion_data_a.wins / champion_data_a.games) * 100)
         champion_data_b.win_percent = int((champion_data_b.wins / champion_data_b.games) * 100)
@@ -120,15 +135,28 @@ class CompareSummoners(View):
             'champion_data_a_averages': champion_data_a.averages,
             'champion_data_b': champion_data_b,
             'champion_data_b_averages': champion_data_b.averages,
+            'region': region,
         }
         return render(request, 'compare.html', context=context)
 
-    def post(self, request):
-        return handle_contact_form()
+    def post(self, request, region, summoner_a_name, summoner_b_name):
+        compare_form = CompareSummonersForm(request.POST)
+        if compare_form.is_valid():
+            summoner_a_name = compare_form.cleaned_data['summoner_a_name']
+            summoner_b_name = compare_form.cleaned_data['summoner_b_name']
+            region = region
+            return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
+                            summoner_b_name=summoner_b_name)
+
+        return handle_contact_form(request)
 
 
 def error404(request):
-    return render(request, 'notification.html')
+    return render(request, '404.html')
+
+
+def error500(request):
+    return render(request, '500.html')
 
 
 def handle_contact_form(request):

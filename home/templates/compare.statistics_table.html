@@ -1,10 +1,9 @@
 {% load float_extras %}
-<div class="content-section-a">
+<div id="statistics" class="content-section-a">
     <div class="container">
-        <h2>Statistics of <label class="text-primary"> {{ summoner_a.name }}</label> with
-            <label class="text-primary"> {{ champion_a.name }}</label> VS
-            <label class="text-danger">{{ summoner_b.name }}</label> with
-            <label class="text-danger"> {{ champion_b.name }}</label>
+        <h2>Statistics of <a class="text-primary" href="{% url 'summonerMain' region summoner_a.name %}">{{ summoner_a.name }} with
+           {{ champion_a.name }}</a> VS
+            <a class="text-danger" href="{% url 'summonerMain' region summoner_b.name %}">{{ summoner_b.name }} with {{ champion_b.name }}</a>
         </h2>
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#averages">Averages (per game)</a></li>

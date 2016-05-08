@@ -1,9 +1,9 @@
 {% load staticfiles %}
 <div id="header" class="header"
      style="background-image: url('{{ champion.skins.0.splash }}');">
-    <div class="container">
+    <div id="mastery" class="container">
         <div class="col-sm-6">
-            <div class="intro-message ">
+            <div id="intro-message-summoner" class="intro-message">
                 {#                        champion name#}
                 <h1>{{ champion.name }}</h1>
                 <h3>{{ champion.title }}</h3>
@@ -34,7 +34,11 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="col-xs-6">Mastery level:</td>
+                        <td class="col-xs-6">Region:</td>
+                        <td>{{ region }}</td>
+                    </tr>
+                    <tr>
+                        <td>Mastery level:</td>
                         <td>{{ champion_data.mastery_level }}</td>
                     </tr>
                     <tr>

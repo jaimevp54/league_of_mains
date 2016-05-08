@@ -17,6 +17,13 @@
                                 <li>Did you mistype the summoner name?</li>
                                 <li>Did you select the wrong region?</li>
                             </ul>
+                        {% elif cant_compare_summoners %}
+                            <h1 class="text-warning">Ups! Something is wrong</h1>
+                            <p>Can't compare these summoner.</p>
+                            <p>Maybe:</p>
+                            <ul>
+                                <li>One of them has not played any ranked game.</li>
+                            </ul>
                         {% endif %}
                         <br>
                         <p>You can go to the <a href="{% url 'home' %}">Home</a> page or <a href="{{ from_url }}">go

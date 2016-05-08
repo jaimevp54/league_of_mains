@@ -1,105 +1,108 @@
 {% load staticfiles %}
 <div id="header" class="header">
-    <div  class="container header-container flip-x col-md-6"
-         style="background:linear-gradient( -90deg,rgba(255, 255, 255,0), rgba(0, 0, 0,1)),url('{{ champion_a.skins.0.splash }}') center;">
-        <div class="col-sm-6 flip-x">
-            <div class="intro-message ">
-                {#                        champion name#}
-                <h1>{{ champion_a.name }}</h1>
-                <h3>{{ champion_a.title }}</h3>
-                <hr class="intro-divider">
-                <div class="col col-xs-12">
-                    {% if  champion_data_a.mastery_level == 1 %}
-                        <img src="{% static 'home/img/champion_mastery_1.png' %}">
-                    {% endif %}
-                    {% if  champion_data_a.mastery_level == 2 %}
-                        <img src="{% static 'home/img/champion_mastery_2.png' %}">
-                    {% endif %}
-                    {% if  champion_data_a.mastery_level == 3 %}
-                        <img src="{% static 'home/img/champion_mastery_3.png' %}">
-                    {% endif %}
-                    {% if  champion_data_a.mastery_level == 4 %}
-                        <img src="{% static 'home/img/champion_mastery_4.png' %}">
-                    {% endif %}
-                    {% if  champion_data_a.mastery_level == 5 %}
-                        <img src="{% static 'home/img/champion_mastery_5.png' %}">
-                    {% endif %}
+    <div class="container-fluid">
 
+        <div id="mastery" class="header-container flip-x col-md-6"
+             style="background:linear-gradient( -90deg,rgba(255, 255, 255,0), rgba(0, 0, 0,1)),url('{{ champion_a.skins.0.splash }}') center;">
+            <div class="col-sm-6 flip-x">
+                <div class="intro-message ">
+                    {#                        champion name#}
+                    <h1>{{ champion_a.name }}</h1>
+                    <h3>{{ champion_a.title }}</h3>
+                    <hr class="intro-divider">
+                    <div class="col col-xs-12">
+                        {% if  champion_data_a.mastery_level == 1 %}
+                            <img src="{% static 'home/img/champion_mastery_1.png' %}">
+                        {% endif %}
+                        {% if  champion_data_a.mastery_level == 2 %}
+                            <img src="{% static 'home/img/champion_mastery_2.png' %}">
+                        {% endif %}
+                        {% if  champion_data_a.mastery_level == 3 %}
+                            <img src="{% static 'home/img/champion_mastery_3.png' %}">
+                        {% endif %}
+                        {% if  champion_data_a.mastery_level == 4 %}
+                            <img src="{% static 'home/img/champion_mastery_4.png' %}">
+                        {% endif %}
+                        {% if  champion_data_a.mastery_level == 5 %}
+                            <img src="{% static 'home/img/champion_mastery_5.png' %}">
+                        {% endif %}
+
+
+                    </div>
+                    <table class="table table-header">
+                        <thead>
+                        <td>Summoner:</td>
+                        <td>{{ summoner_a.name }}</td>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Mastery level:</td>
+                            <td>{{ champion_data_a.mastery_level }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mastery points:</td>
+                            <td>{{ champion_data_a.mastery_points }}</td>
+                        </tr>
+                        <tr>
+                            <td>Highest grade:</td>
+                            <td>{{ champion_data_a.highest_grade }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                 </div>
-                <table class="table table-header">
-                    <thead>
-                    <td>Summoner:</td>
-                    <td>{{ summoner_a.name }}</td>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Mastery level:</td>
-                        <td>{{ champion_data_a.mastery_level }}</td>
-                    </tr>
-                    <tr>
-                        <td>Mastery points:</td>
-                        <td>{{ champion_data_a.mastery_points }}</td>
-                    </tr>
-                    <tr>
-                        <td>Highest grade:</td>
-                        <td>{{ champion_data_a.highest_grade }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-
             </div>
         </div>
-    </div>
 
-    <div class="container header-container col-md-6"
-         style=" background:linear-gradient(-90deg,rgba(255, 255, 255,0), rgba(0, 0, 0,1)),url('{{ champion_b.skins.0.splash }}') center;">
-        <div class="col-sm-6">
-            <div class="intro-message">
-                {#                        champion name#}
-                <h1>{{ champion_b.name }}</h1>
-                <h3>{{ champion_b.title }}</h3>
-                <hr class="intro-divider">
-                <div class="col col-xs-12">
-                    {% if  champion_data_b.mastery_level == 1 %}
-                        <img src="{% static 'home/img/champion_mastery_1.png' %}">
-                    {% endif %}
-                    {% if  champion_data_b.mastery_level == 2 %}
-                        <img src="{% static 'home/img/champion_mastery_2.png' %}">
-                    {% endif %}
-                    {% if  champion_data_b.mastery_level == 3 %}
-                        <img src="{% static 'home/img/champion_mastery_3.png' %}">
-                    {% endif %}
-                    {% if  champion_data_b.mastery_level == 4 %}
-                        <img src="{% static 'home/img/champion_mastery_4.png' %}">
-                    {% endif %}
-                    {% if  champion_data_b.mastery_level == 5 %}
-                        <img src="{% static 'home/img/champion_mastery_5.png' %}">
-                    {% endif %}
+        <div class="header-container col-md-6"
+             style=" background:linear-gradient(-90deg,rgba(255, 255, 255,0), rgba(0, 0, 0,1)),url('{{ champion_b.skins.0.splash }}') center;">
+            <div class="col-sm-6">
+                <div class="intro-message">
+                    {#                        champion name#}
+                    <h1>{{ champion_b.name }}</h1>
+                    <h3>{{ champion_b.title }}</h3>
+                    <hr class="intro-divider">
+                    <div class="col col-xs-12">
+                        {% if  champion_data_b.mastery_level == 1 %}
+                            <img src="{% static 'home/img/champion_mastery_1.png' %}">
+                        {% endif %}
+                        {% if  champion_data_b.mastery_level == 2 %}
+                            <img src="{% static 'home/img/champion_mastery_2.png' %}">
+                        {% endif %}
+                        {% if  champion_data_b.mastery_level == 3 %}
+                            <img src="{% static 'home/img/champion_mastery_3.png' %}">
+                        {% endif %}
+                        {% if  champion_data_b.mastery_level == 4 %}
+                            <img src="{% static 'home/img/champion_mastery_4.png' %}">
+                        {% endif %}
+                        {% if  champion_data_b.mastery_level == 5 %}
+                            <img src="{% static 'home/img/champion_mastery_5.png' %}">
+                        {% endif %}
 
+
+                    </div>
+                    <table class="table table-header">
+                        <thead>
+                        <td>SUMMONER:</td>
+                        <td>{{ summoner_b.name }}</td>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-xs-6">Mastery level:</td>
+                            <td>{{ champion_data_b.mastery_level }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mastery points:</td>
+                            <td>{{ champion_data_b.mastery_points }}</td>
+                        </tr>
+                        <tr>
+                            <td>Highest grade:</td>
+                            <td>{{ champion_data_b.highest_grade }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                 </div>
-                <table class="table table-header">
-                    <thead>
-                    <td>SUMMONER:</td>
-                    <td>{{ summoner_b.name }}</td>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="col-xs-6">Mastery level:</td>
-                        <td>{{ champion_data_b.mastery_level }}</td>
-                    </tr>
-                    <tr>
-                        <td>Mastery points:</td>
-                        <td>{{ champion_data_b.mastery_points }}</td>
-                    </tr>
-                    <tr>
-                        <td>Highest grade:</td>
-                        <td>{{ champion_data_b.highest_grade }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-
             </div>
         </div>
     </div>

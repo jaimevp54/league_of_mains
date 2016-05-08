@@ -3,10 +3,16 @@
 
 {% block title %}League of Mains{% endblock title %}
 
-{% block content %}
+{% block navbar %}
+    {% include 'home.navbar.html' %}
+{% endblock %}
 
+{% block content %}
 
     {% include 'home.header.html' %}
 
-
 {% endblock content %}
+
+{% block modal %}
+   {% include 'acquire.modal.html' %}
+{% endblock %}

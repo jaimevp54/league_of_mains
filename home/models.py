@@ -5,20 +5,22 @@ from cassiopeia.type.api.exception import APIError
 
 # Create your models here.
 class Summoner(models.Model):
-    name = models.CharField(max_length=25, editable=True)
-    game_id = models.IntegerField(editable=True)
-    profile_icon_id = models.IntegerField(editable=True)
+    name = models.CharField(max_length=25)
+    game_id = models.IntegerField()
+    profile_icon_id = models.IntegerField()
+    region = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.name
+        return self.region + ": " + self.name
 
     @classmethod
-    def get_summoner(cls, summoner):
+    def get_summoner(cls, summoner, region):
         if not Summoner.objects.filter(name=summoner.name).exists():
-            s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id)
+            s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id,
+                         region=region)
             s.save()
         else:
-            s = Summoner.objects.filter(name=summoner.name)[0]
+            s = Summoner.objects.filter(name=summoner.name, region=region)[0]
 
         return s
 
@@ -54,10 +56,12 @@ class ChampionData(models.Model):
 
     @property
     def kda(self):
-        return round((self.kills + self.assists) / (self.deaths if self.deaths else 1), 3)
+        return round((self.kills + self.assists) / (self.deaths if self.deaths else 1), 2)
 
     @property
     def averages(self):
+        if not self.games:
+            return None
         averages = ChampionData()
         averages.kills = self.kills / self.games
         averages.deaths = self.deaths / self.games
@@ -125,8 +129,8 @@ class ChampionData(models.Model):
         return champion_data
 
     @classmethod
-    def get_champion_data(cls, summoner, champion, champion_mastery):
-        s = Summoner.get_summoner(summoner)
+    def get_champion_data(cls, summoner, champion, champion_mastery, region):
+        s = Summoner.get_summoner(summoner, region)
         if not ChampionData.objects.filter(summoner=s, name=champion.name).exists():
             champion_data = ChampionData.create(s, champion)
         else:
@@ -136,4 +140,4 @@ class ChampionData(models.Model):
         return champion_data
 
     def __str__(self):
-        return self.summoner.name + " with " + self.name
+        return "{} ({}) with {}".format(self.summoner.name, self.summoner.region, self.name)
