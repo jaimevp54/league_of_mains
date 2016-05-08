@@ -3,7 +3,7 @@ from django import forms
 
 class SummonerSearchForm(forms.Form):
     summoner_name = forms.CharField(label='Summoner Name', max_length=100)
-    region = forms.CharField(max_length=5)
+    region = forms.CharField(required=False)
 
 
 class CompareSummonersForm(forms.Form):

@@ -79,11 +79,18 @@ class SummonerMain(View):
         return render(request, 'summoner.html', context=context)
 
     def post(self, request, region, summoner_name):
-        form = CompareSummonersForm(request.POST)
-        if form.is_valid():
+        search_form = SummonerSearchForm(request.POST)
+        compare_form = CompareSummonersForm(request.POST)
+
+        if search_form.is_valid():
+            summoner_name = search_form.cleaned_data['summoner_name']
             region = region
+            return redirect('summonerMain', summoner_name=summoner_name, region=region)
+
+        if compare_form.is_valid():
             summoner_a_name = summoner_name
-            summoner_b_name = form.cleaned_data['summoner_b_name']
+            summoner_b_name = compare_form.cleaned_data['summoner_b_name']
+            region = region
             return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
                             summoner_b_name=summoner_b_name)
         return handle_contact_form(request)
@@ -142,7 +149,15 @@ class CompareSummoners(View):
         }
         return render(request, 'compare.html', context=context)
 
-    def post(self, request):
+    def post(self, request, region, summoner_a_name, summoner_b_name):
+        compare_form = CompareSummonersForm(request.POST)
+        if compare_form.is_valid():
+            summoner_a_name = compare_form.cleaned_data['summoner_a_name']
+            summoner_b_name = compare_form.cleaned_data['summoner_b_name']
+            region = region
+            return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
+                            summoner_b_name=summoner_b_name)
+
         return handle_contact_form()
 
 

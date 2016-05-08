@@ -15,4 +15,17 @@
             <a class="page-scroll" href="#contactForm">Contact Us</a>
         </li>
     </ul>
+    <form class="navbar-form navbar-right" action="" method="post">
+        {% csrf_token %}
+        <div id="search" class="input-group">
+            <input name="summoner_name" type="text" class="form-control"
+                   placeholder="Summoner name..." required>
+            <div class=" input-group-btn">
+                <button name="searchBtn" type="submit"
+                        class="btn btn-primary"><span
+                        class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </div>
+    </form>
+
 {% endblock %}
