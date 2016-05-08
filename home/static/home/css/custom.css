@@ -57,6 +57,11 @@ h6 {
     white-space: nowrap;
 }
 
+#intro-message-summoner.intro-message {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
 #intro-divider-home {
     width: 60%;
 }
