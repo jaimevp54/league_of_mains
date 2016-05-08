@@ -13,23 +13,24 @@
                 <form class=" tab-content form" action="" method="post">
                     {% csrf_token %}
                     <div id="search" class="tab-pane input-group col-md-6 col-md-offset-3 in active">
-                        <input  name="summoner_name" type="text" class="form-control"
+                        <input name="summoner_name" type="text" class="form-control"
                                placeholder="Summoner name...">
                         <div class=" input-group-btn">
-                            <button name ="searchBtn"onclick="this.form.submited=this.name" type="submit" class="btn btn-primary"><span
+                            <button name="searchBtn" onclick="this.form.submited=this.name" type="submit"
+                                    class="btn btn-primary" data-toggle="modal" data-target="#acquireModal" ><span
                                     class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>
 
                     <div id="compare" class="tab-pane input-group col-md-8 col-md-offset-2">
-                        <input  name="summoner_a_name" type="text" class="form-control"
+                        <input name="summoner_a_name" type="text" class="form-control"
                                placeholder="Summoner A name...">
                         <div class="input-group-btn">
                             <button name="compareBtn" onclick="this.form.submited=this.name" type="submit"
-                                    class="btn btn-primary"><span
+                                    class="btn btn-primary" data-toggle="modal" data-target="#modal"><span
                                     class="glyphicon glyphicon-search"></span></button>
                         </div>
-                        <input  name="summoner_b_name" type="text" class="form-control"
+                        <input name="summoner_b_name" type="text" class="form-control"
                                placeholder="Summoner B name...">
                     </div>
                     <div class="row">

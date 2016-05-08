@@ -54,18 +54,7 @@ class SummonerMain(View):
 
         champion_mastery = summoner.top_champion_masteries()[0]
         champion = champion_mastery.champion
-        if not Summoner.objects.filter(name=summoner.name).exists():
-            s = Summoner(name=summoner.name, game_id=summoner.id, profile_icon_id=summoner.profile_icon_id)
-            s.save()
-        else:
-            s = Summoner.objects.filter(name=summoner.name)[0]
-
-        if not ChampionData.objects.filter(summoner=s, name=champion.name).exists():
-            champion_data = ChampionData.create(s, champion)
-        else:
-            champion_data = ChampionData.objects.filter(summoner=s, name=champion.name)[0]
-        champion_data.update(summoner, champion, champion_mastery)
-        champion_data.save()
+        champion_data = ChampionData.get_champion_data(summoner, champion, champion_mastery, region)
 
         context = {
             'summoner': summoner,
@@ -113,14 +102,15 @@ class CompareSummoners(View):
                     'from_url': from_url,
                 }
                 return render(request, 'notification.html', context=context)
+            raise e
         champion_mastery_a = summoner_a.top_champion_masteries()[0]
         champion_mastery_b = summoner_b.top_champion_masteries()[0]
 
         champion_a = champion_mastery_a.champion
         champion_b = champion_mastery_b.champion
 
-        champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a)
-        champion_data_b = ChampionData.get_champion_data(summoner_b, champion_b, champion_mastery_b)
+        champion_data_a = ChampionData.get_champion_data(summoner_a, champion_a, champion_mastery_a, region)
+        champion_data_b = ChampionData.get_champion_data(summoner_b, champion_b, champion_mastery_b, region)
 
         if not champion_data_a.games or not champion_data_b.games:
             from_url = request.META['HTTP_REFERER'] if "HTTP_REFERER" in request.META else ""
@@ -158,7 +148,7 @@ class CompareSummoners(View):
             return redirect('compareSummoners', region=region, summoner_a_name=summoner_a_name,
                             summoner_b_name=summoner_b_name)
 
-        return handle_contact_form()
+        return handle_contact_form(request)
 
 
 def error404(request):
