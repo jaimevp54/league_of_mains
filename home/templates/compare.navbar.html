@@ -1,0 +1,29 @@
+{% extends 'base.navbar.html' %}
+
+{% block menu_content %}
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a class="page-scroll" href="#mastery">Mastery</a>
+        </li>
+        <li>
+            <a class="page-scroll" href="#statistics">Statistics</a>
+        </li>
+        <li>
+            <a class="page-scroll" href="#contactForm">Contact Us</a>
+        </li>
+    </ul>
+    <form class="navbar-form navbar-right" action="" method="post">
+        {% csrf_token %}
+        <div id="compare" class="input-group">
+            <input name="summoner_a_name" type="text" class="form-control"
+                   placeholder="Summoner A name...">
+            <div class="input-group-btn">
+                <button name="compareBtn" onclick="this.form.submited=this.name" type="submit"
+                        class="btn btn-primary" data-toggle="modal" data-target="#acquireModal"><span
+                        class="glyphicon glyphicon-search"></span></button>
+            </div>
+            <input name="summoner_b_name" type="text" class="form-control"
+                   placeholder="Summoner B name...">
+        </div>
+    </form>
+{% endblock %}

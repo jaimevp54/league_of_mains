@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<div class="row">
+    <p style="font-weight: bolder;">¡League of Mains!</p>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        {% if summoner_name %}
+            <p>Summoner name: {{ summoner_name }}</p>
+            <p>Region: {{ region }}</p>
+        {% endif %}
+        <p>Email: {{ email }}</p>
+        <p>Message: {{ message }}</p>
+    </div>
+</div>

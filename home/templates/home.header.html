@@ -1,19 +1,70 @@
-<div id="header" class="header"
-     style="background-image: url('http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Anivia_5.jpg');">
+{% load staticfiles %}
+<div id="home-header" class="header"
+     style="background-image: url('{% static 'home/img/home_page_background.jpg' %}');">
     <div class="container">
-        <div class="col-lg-6">
+        <div class="col-sm-8">
             <div class="intro-message">
-                {#                        champion name#}
-                <h1>{{ champion.name }}Anivia</h1>
-                <h3>{{ champion.title }}The Cryophoenix</h3>
-                <hr class="intro-divider">
-                <ul class="list-inline intro-buttons">
-                    <li>
-                        <a href="http://gameinfo.na.leagueoflegends.com/en/game-info/champions/anivia/"
-                           class="btn btn-default btn-lg"><span class="network-name">Champion Page</span></a>
-                    </li>
+
+                <h3>Welcome to</h3>
+                <h1>League of Mains</h1>
+
+                <hr id="intro-divider-home" class="intro-divider">
+
+                <form class=" tab-content form" action="" method="post">
+                    {% csrf_token %}
+                    <div id="search" class="tab-pane input-group col-md-6 col-md-offset-3 in active">
+                        <input name="summoner_name" type="text" class="form-control"
+                               placeholder="Summoner name...">
+                        <div class=" input-group-btn">
+                            <button name="searchBtn" onclick="this.form.submited=this.name" type="submit"
+                                    class="btn btn-primary" data-toggle="modal" data-target="#acquireModal" ><span
+                                    class="glyphicon glyphicon-search"></span></button>
+                        </div>
+                    </div>
+
+                    <div id="compare" class="tab-pane input-group col-md-8 col-md-offset-2">
+                        <input name="summoner_a_name" type="text" class="form-control"
+                               placeholder="Summoner A name...">
+                        <div class="input-group-btn">
+                            <button name="compareBtn" onclick="this.form.submited=this.name" type="submit"
+                                    class="btn btn-primary" data-toggle="modal" data-target="#modal"><span
+                                    class="glyphicon glyphicon-search"></span></button>
+                        </div>
+                        <input name="summoner_b_name" type="text" class="form-control"
+                               placeholder="Summoner B name...">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 pull-left col-md-offset-3">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a class="badge" data-toggle="pill" href="#search">Search</a>
+                                </li>
+                                <li><a class="badge" data-toggle="pill" href="#compare">Compare</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="region" class="btn btn-primary ">
+                                <optgroup label="Europe">
+                                    <option value="EUNE">EUNE</option>
+                                    <option value="EUW">EUW</option>
+                                    <option value="RU">RU</option>
+                                    <option value="TR">TR</option>
+                                </optgroup>
+                                <optgroup label="America">
+                                    <option value="NA">NA</option>
+                                    <option value="BR">BR</option>
+                                    <option value="LAN">LAN</option>
+                                    <option value="LAS">LAS</option>
+                                </optgroup>
+                                <optgroup label="Asia & Oceania">
+                                    <option value="JP">JP</option>
+                                    <option value="KR">KR</option>
+                                    <option value="OCE">OCE</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- /.container -->
 </div>

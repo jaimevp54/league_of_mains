@@ -26,7 +26,7 @@ SECRET_KEY = '^xb@-z(x9c&^t71$9$4&%$j6dzu5^7k2)fop)(ifkw-3i9b52i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -92,7 +92,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -101,3 +101,15 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 STATIC_ROOT = os.path.join(DATA_DIR, 'static')
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'leagueofmains.contact@gmail.com'
+EMAIL_HOST_PASSWORD = 'aniviabestchamp'  # TODO hide this
+DEFAULT_FROM_EMAIL = 'League of Mains <leagueofmains.contact@gmail.com>'
+
+# Override 404 page
+handler404 = 'home.views.error404'
+handler500 = 'home.views.error500'

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div id="success-banner" class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-2">
+                    <div class="margin-top-100 margin-bottom-100">
+                        {% if contact_us_success %}
+                            <h1>Success!</h1>
+                            <p>Your message has been sent.</p>
+                        {% elif 404_summoner_not_found %}
+                            <h1 class="text-warning">Ups! <label class="balloon-a">404</label></h1>
+                            <p>The summoner <label class="text-warning">{{ summoner_name }}</label> could not be found in the region <label class="text-warning">{{ region }}</label></p>
+                            <ul>
+                                <li>Did you mistype the summoner name?</li>
+                                <li>Did you select the wrong region?</li>
+                            </ul>
+                        {% elif cant_compare_summoners %}
+                            <h1 class="text-warning">Ups! Something is wrong</h1>
+                            <p>Can't compare these summoner.</p>
+                            <p>Maybe:</p>
+                            <ul>
+                                <li>One of them has not played any ranked game.</li>
+                            </ul>
+                        {% endif %}
+                        <br>
+                        <p>You can go to the <a href="{% url 'home' %}">Home</a> page or <a href="{{ from_url }}">go
+                            back</a> to where you came from.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block about_us %}
+
+{% endblock %}

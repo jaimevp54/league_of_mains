@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ summoner.name}} with {{ champion.name }}{% endblock title %}
+
+{% block navbar %}
+    {% include 'summoner.navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'summoner.header.html' %}
+
+    {% include 'summoner.statistics_table.html' %}
+
+    {% include 'summoner.related.html' %}
+
+{% endblock content %}
+
+{% block modal %}
+    {% include 'acquire.modal.html' %}
+{% endblock %}

@@ -1604,8 +1604,6 @@ pre code {
   }
 }
 .container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -4019,7 +4017,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+
 }
 .nav-tabs > li {
   float: left;
@@ -5128,7 +5126,6 @@ a.thumbnail.active {
 }
 .progress {
   height: 20px;
-  margin-bottom: 20px;
   overflow: hidden;
   background-color: #f5f5f5;
   border-radius: 4px;

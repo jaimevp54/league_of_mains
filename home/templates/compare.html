@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ summoner_a.name }} VS {{ summoner_b.name }}{% endblock title %}
+
+{% block navbar %}
+    {% include 'compare.navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'compare.header.html' %}
+
+    {% include 'compare.statistics_table.html' %}
+
+{% endblock content %}
+
+{% block modal %}
+    {% include 'acquire.modal.html' %}
+{% endblock %}

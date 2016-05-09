@@ -1,0 +1,544 @@
+{% load float_extras %}
+<div id="statistics" class="content-section-a">
+    <div class="container">
+        <h2>Statistics of <a class="text-primary" href="{% url 'summonerMain' region summoner_a.name %}">{{ summoner_a.name }} with
+           {{ champion_a.name }}</a> VS
+            <a class="text-danger" href="{% url 'summonerMain' region summoner_b.name %}">{{ summoner_b.name }} with {{ champion_b.name }}</a>
+        </h2>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#averages">Averages (per game)</a></li>
+            <li><a data-toggle="tab" href="#totals">Totals</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="averages" class="tab-pane active">
+
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-md-6 col-xs-8">
+                                <div>Games</div>
+                            </td>
+                            <td>
+                                {% with champion_data_a.games|add:champion_data_b.games as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.games total 100 %}%"> {{ champion_data_a.games }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.games total 100 %}%">{{ champion_data_b.games }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-6 col-xs-8">
+                                <div>Wins</div>
+                            </td>
+                            <td>
+                                {% with champion_data_a.win_percent|add:champion_data_b.win_percent as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.win_percent total 100 %}%"> {{ champion_data_a.wins }}
+                                            ({{ champion_data_a.win_percent|floatformat }}%)
+                                        </div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.win_percent total 100 %}%">{{ champion_data_b.wins }}
+                                            ({{ champion_data_b.win_percent|floatformat }}%)
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kills</td>
+                            <td class="text-muted">
+                                {% with champion_data_a_averages.kills|addf:champion_data_b_averages.kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.kills total 100 %}%">{{ champion_data_a_averages.kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.kills total 100 %}%">{{ champion_data_b_averages.kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Deaths</td>
+                            <td>
+                                {% with champion_data_a_averages.deaths|addf:champion_data_b_averages.deaths as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.deaths total 100 %}%"> {{ champion_data_a_averages.deaths|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.deaths total 100 %}%">{{ champion_data_b_averages.deaths|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Assists</td>
+                            <td>
+                                {% with champion_data_a_averages.assists|addf:champion_data_b_averages.assists as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.assists total 100 %}%"> {{ champion_data_a_averages.assists|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.assists total 100 %}%">{{ champion_data_b_averages.assists|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KDA</td>
+                            <td>
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info"
+                                         style="width: {{ champion_data_a.kda_percent }}%"> {{ champion_data_a.kda }}</div>
+                                    <div class="progress-bar progress-bar-danger"
+                                         style="width: {{ champion_data_b.kda_percent }}%">{{ champion_data_b.kda }}</div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>
+                                {% with champion_data_a_averages.cs_count|addf:champion_data_b_averages.cs_count as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.cs_count total 100 %}%"> {{ champion_data_a_averages.cs_count|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.cs_count total 100 %}%">{{ champion_data_b_averages.cs_count|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Largest killing spree</td>
+                            <td>
+                                {% with champion_data_a.largest_killing_spree|add:champion_data_b.largest_killing_spree as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.largest_killing_spree total 100 %}%"> {{ champion_data_a.largest_killing_spree }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.largest_killing_spree total 100 %}%">{{ champion_data_b.largest_killing_spree }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Largest CS count</td>
+                            <td>
+                                {% with champion_data_a.largest_cs_count|add:champion_data_b.largest_cs_count as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.largest_cs_count total 100 %}%"> {{ champion_data_a.largest_cs_count }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.largest_cs_count total 100 %}%">{{ champion_data_b.largest_cs_count }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-md-6 col-xs-8">First blood</td>
+                            <td>
+                                {% with champion_data_a_averages.first_blood_count|addf:champion_data_b_averages.first_blood_count as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.first_blood_count total 100 %}%"> {{ champion_data_a_averages.first_blood_count|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.first_blood_count total 100 %}%">{{ champion_data_b_averages.first_blood_count|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Turrets destroyed</td>
+                            <td>
+                                {% with champion_data_a_averages.turret_kills|addf:champion_data_b_averages.turret_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.turret_kills total 100 %}%"> {{ champion_data_a_averages.turret_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.turret_kills total 100 %}%">{{ champion_data_b_averages.turret_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inhibitors destroyed</td>
+                            <td>
+                                {% with champion_data_a_averages.inhibitor_kills|addf:champion_data_b_averages.inhibitor_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.inhibitor_kills total 100 %}%"> {{ champion_data_a_averages.inhibitor_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.inhibitor_kills total 100 %}%">{{ champion_data_b_averages.inhibitor_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Wards placed</td>
+                            <td>
+                                {% with champion_data_a_averages.wards_placed|addf:champion_data_b_averages.wards_placed as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.wards_placed total 100 %}%"> {{ champion_data_a_averages.wards_placed|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.wards_placed total 100 %}%">{{ champion_data_b_averages.wards_placed|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Wards destroyed</td>
+                            <td>
+                                {% with champion_data_a_averages.ward_kills|addf:champion_data_b_averages.ward_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.ward_kills total 100 %}%"> {{ champion_data_a_averages.ward_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.ward_kills total 100 %}%">{{ champion_data_b_averages.ward_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pentakills</td>
+                            <td>
+                                {% with champion_data_a_averages.penta_kills|addf:champion_data_b_averages.penta_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.penta_kills total 100 %}%"> {{ champion_data_a_averages.penta_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.penta_kills total 100 %}%">{{ champion_data_b_averages.penta_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Quadrakills</td>
+                            <td>
+                                {% with champion_data_a_averages.quadra_kills|addf:champion_data_b_averages.quadra_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.quadra_kills total 100 %}%"> {{ champion_data_a_averages.quadra_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.quadra_kills total 100 %}%">{{ champion_data_b_averages.quadra_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Triplekills</td>
+                            <td>
+                                {% with champion_data_a_averages.triple_kills|addf:champion_data_b_averages.triple_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.triple_kills total 100 %}%"> {{ champion_data_a_averages.triple_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.triple_kills total 100 %}%">{{ champion_data_b_averages.triple_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Double kills</td>
+                            <td>
+                                {% with champion_data_a_averages.double_kills|addf:champion_data_b_averages.double_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a_averages.double_kills total 100 %}%"> {{ champion_data_a_averages.double_kills|floatformat:-2 }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b_averages.double_kills total 100 %}%">{{ champion_data_b_averages.double_kills|floatformat:-2 }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div id="totals" class="tab-pane">
+
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-md-6 col-xs-8">
+                                <div>Games</div>
+                            </td>
+                            <td>
+                                {% with champion_data_a.games|add:champion_data_b.games as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.games total 100 %}%"> {{ champion_data_a.games }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.games total 100 %}%">{{ champion_data_b.games }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-6 col-xs-8">
+                                <div>Wins</div>
+                            </td>
+                            <td>
+                                {% with champion_data_a.win_percent|add:champion_data_b.win_percent as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.win_percent total 100 %}%"> {{ champion_data_a.wins }}
+                                            ({{ champion_data_a.win_percent|floatformat }}%)
+                                        </div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.win_percent total 100 %}%">{{ champion_data_b.wins }}
+                                            ({{ champion_data_b.win_percent|floatformat }}%)
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kills</td>
+                            <td class="text-muted">
+                                {% with champion_data_a.kills|add:champion_data_b.kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.kills total 100 %}%"> {{ champion_data_a.kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.kills total 100 %}%">{{ champion_data_b.kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Deaths</td>
+                            <td>
+                                {% with champion_data_a.deaths|add:champion_data_b.deaths as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.deaths total 100 %}%"> {{ champion_data_a.deaths }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.deaths total 100 %}%">{{ champion_data_b.deaths }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Assists</td>
+                            <td>
+                                {% with champion_data_a.assists|add:champion_data_b.assists as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.assists total 100 %}%"> {{ champion_data_a.assists }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.assists total 100 %}%">{{ champion_data_b.assists }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KDA</td>
+                            <td>
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info"
+                                         style="width: {{ champion_data_a.kda_percent }}%"> {{ champion_data_a.kda }}</div>
+                                    <div class="progress-bar progress-bar-danger"
+                                         style="width: {{ champion_data_b.kda_percent }}%">{{ champion_data_b.kda }}</div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>
+                                {% with champion_data_a.cs_count|add:champion_data_b.cs_count as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.cs_count total 100 %}%"> {{ champion_data_a.cs_count }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.cs_count total 100 %}%">{{ champion_data_b.cs_count }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Largest killing spree</td>
+                            <td>
+                                {% with champion_data_a.largest_killing_spree|add:champion_data_b.largest_killing_spree as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.largest_killing_spree total 100 %}%"> {{ champion_data_a.largest_killing_spree }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.largest_killing_spree total 100 %}%">{{ champion_data_b.largest_killing_spree }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Largest CS count</td>
+                            <td>
+                                {% with champion_data_a.largest_cs_count|add:champion_data_b.largest_cs_count as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.largest_cs_count total 100 %}%"> {{ champion_data_a.largest_cs_count }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.largest_cs_count total 100 %}%">{{ champion_data_b.largest_cs_count }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-md-6 col-xs-8">First blood</td>
+                            <td>
+                                {% with champion_data_a.first_blood_count|add:champion_data_b.first_blood_count as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.first_blood_count total 100 %}%"> {{ champion_data_a.first_blood_count }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.first_blood_count total 100 %}%">{{ champion_data_b.first_blood_count }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Turrets destroyed</td>
+                            <td>
+                                {% with champion_data_a.turret_kills|add:champion_data_b.turret_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.turret_kills total 100 %}%"> {{ champion_data_a.turret_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.turret_kills total 100 %}%">{{ champion_data_b.turret_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inhibitors destroyed</td>
+                            <td>
+                                {% with champion_data_a.inhibitor_kills|add:champion_data_b.inhibitor_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.inhibitor_kills total 100 %}%"> {{ champion_data_a.inhibitor_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.inhibitor_kills total 100 %}%">{{ champion_data_b.inhibitor_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Wards placed</td>
+                            <td>
+                                {% with champion_data_a.wards_placed|add:champion_data_b.wards_placed as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.wards_placed total 100 %}%"> {{ champion_data_a.wards_placed }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.wards_placed total 100 %}%">{{ champion_data_b.wards_placed }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Wards destroyed</td>
+                            <td>
+                                {% with champion_data_a.ward_kills|add:champion_data_b.ward_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.ward_kills total 100 %}%"> {{ champion_data_a.ward_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.ward_kills total 100 %}%">{{ champion_data_b.ward_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pentakills</td>
+                            <td>
+                                {% with champion_data_a.penta_kills|add:champion_data_b.penta_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.penta_kills total 100 %}%"> {{ champion_data_a.penta_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.penta_kills total 100 %}%">{{ champion_data_b.penta_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Quadrakills</td>
+                            <td>
+                                {% with champion_data_a.quadra_kills|add:champion_data_b.quadra_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.quadra_kills total 100 %}%"> {{ champion_data_a.quadra_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.quadra_kills total 100 %}%">{{ champion_data_b.quadra_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Triplekills</td>
+                            <td>
+                                {% with champion_data_a.triple_kills|add:champion_data_b.triple_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.triple_kills total 100 %}%"> {{ champion_data_a.triple_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.triple_kills total 100 %}%">{{ champion_data_b.triple_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Double kills</td>
+                            <td>
+                                {% with champion_data_a.double_kills|add:champion_data_b.double_kills as total %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info"
+                                             style="width: {% widthratio champion_data_a.double_kills total 100 %}%"> {{ champion_data_a.double_kills }}</div>
+                                        <div class="progress-bar progress-bar-danger"
+                                             style="width: {% widthratio champion_data_b.double_kills total 100 %}%">{{ champion_data_b.double_kills }}</div>
+                                    </div>
+                                {% endwith %}
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

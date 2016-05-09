@@ -17,12 +17,12 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
 }
 
 .topnav {
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .lead {
@@ -35,8 +35,13 @@ h6 {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/intro-bg.jpg) no-repeat center center;
     background-size: cover;
+    background-position: center;
+}
+
+.header-container {
+    background-size: cover;
+    background-position: center;
 }
 
 .intro-message {
@@ -47,21 +52,31 @@ h6 {
 
 .intro-message > h1 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 5em;
+    white-space: nowrap;
+}
+
+#intro-message-summoner.intro-message {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#intro-divider-home {
+    width: 60%;
 }
 
 .intro-divider {
-    width: 400px;
     border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .intro-message {
         padding-bottom: 15%;
     }
@@ -74,6 +89,7 @@ h6 {
         display: block;
         margin-bottom: 20px;
         padding: 0;
+        background-color: rgba(255, 255, 255, 0.51);
     }
 
     ul.intro-buttons > li:last-child {
@@ -113,16 +129,27 @@ h6 {
     border-top: 3px solid #e7e7e7;
 }
 
+@media only screen and (min-width: 992px) {
+    .banner {
+        background: url(../img/tresh-chibi.jpg) right no-repeat;;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .banner {
+        background: none;
+    }
+}
+
 .banner {
-    padding: 100px 0;
-    color: #f8f8f8;
-    background: url(../img/banner-bg.jpg) no-repeat center center;
-    background-size: cover;
+    padding: 50px 0;
+    background-color: #FFFCF5;
+    background-size: contain;
 }
 
 .banner h2 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 3em;
 }
 
@@ -135,17 +162,17 @@ h6 {
     margin-top: 0;
 }
 
-@media(max-width:1199px) {
+@media (max-width: 1199px) {
     ul.banner-social-buttons {
         float: left;
         margin-top: 15px;
     }
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .banner h2 {
         margin: 0;
-        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
         font-size: 3em;
     }
 
@@ -167,4 +194,59 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+.table-header {
+    border-radius: 25px;
+    background-color: rgba(20, 20, 20, 0.5);
+}
+
+.flip-x {
+    transform: scaleX(-1);
+}
+
+.margin-top-100 {
+    margin-top: 100px;
+}
+
+.margin-bottom-100 {
+    margin-bottom: 100px;
+}
+
+#success-banner {
+    padding: 110px;
+}
+
+#compare form div {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.tab-content > .active.input-group {
+    display: table;
+}
+
+
+/*glyphicon animation*/
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin2 {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
