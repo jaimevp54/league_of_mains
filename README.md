@@ -1,7 +1,7 @@
 ![League of mains](http://image.prntscr.com/image/f520567c01e5402fb1da162f6a78acb5.png)
 # League of Mains
 
-Is a **League of Legends** statistics site focused on the summoner's main (most used) champion. 
+Is a **League of Legends**'s statistics site focused on the summoner's main (most used) champion. 
 
 Created as a submission for the Riot's **[API CHALLENGE 2016](https://developer.riotgames.com/)**.
 
@@ -23,8 +23,8 @@ Created as a submission for the Riot's **[API CHALLENGE 2016](https://developer.
 
 - Find out who is your most played champion (main).
 - Champion Mastery data.
-- Statistics for total data of ranked gamesplayed.
-- Rwecent videos of youtube related to your main.
+- Statistics for the total data of all ranked games played.
+- Recent videos of youtube related to your main.
 - Comparison between two summoners data.
 - Fully responsive.
 
@@ -37,13 +37,13 @@ it already has a test summoner that you can use. user: `leagueofmains` password:
 
 ## Programming language and Frameworks
 
-The site is implemented using [Python](https://www.python.org/) and the [Django](https://www.djangoproject.com) framework, [Bootstrap](http://getbootstrap.com/) for the *html* and *css* and the library **[Cassiopeia](https://github.com/meraki-analytics/cassiopeia)**  was used to comunicate with the Riot's API.
+The site is implemented using [Python](https://www.python.org/) and the [Django](https://www.djangoproject.com) framework, [Bootstrap](http://getbootstrap.com/) for the *html* and *css* and the library **[Cassiopeia](https://github.com/meraki-analytics/cassiopeia)**  was used to communicate with the Riot's API.
 
 ## Local setup
 
 To test the project locally in your machine,  the next commands can be used.
 
-- **Note**: Preferably working inside a virtual enviroment with python 3.5 installed.
+- **Note**: Preferably working inside a virtual environment with python 3.5 installed.
 
 ```bash
 
@@ -75,11 +75,9 @@ For more information about the API calls check it's [reference page](https://dev
 
 The demo is being hosted in www.pythonanywhere.com with a begginer (Free) account. This way the leagueofmains.pythonanywhere.com site will expire in a maximum of three months, this is enough time for submission porpuses.
 
-
-
 ## Developer
 
-Hi! my name is Jaime Viñas from Dominican Republic, student of Telecomunications Engineering, Summoner name: Kyde and as it's made obvious in the [Demo](#demo) section, a Anivia's lover. Also planning to apply for a work on **Riot Games** when I finish my studies so maybe I get to know the people who judge this :D.
+Hi! my name is Jaime Viñas from Dominican Republic, student of Telecomunications Engineering, Summoner name: Kyde and as it's made obvious in the [Demo](#demo) section, a Anivia's lover. I'm also planning to apply for a work on **Riot Games** after I finish my studies so maybe I get to know the people who judge this :D.
 
 ## Credits
 Thanks to those that even on simple ways helped me in the development of this project
