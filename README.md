@@ -33,7 +33,7 @@ Created as a submission for the Riot's **[API CHALLENGE 2016](https://developer.
 ![home page](http://image.prntscr.com/image/083781a9b62341718f9f4b34d9a101b2.png)
 
 You can test a fully working live demo at http://leagueofmains.pythonanywhere.com, to see the stored data in the database you can go to the admin's page ( http://leagueofmains.pythonanywhere.com/admin )
-it already has a test summoner that you can use. user: `leagueofmains` password: `aniviabestchamp`.
+it already has a test user that you can use. user: `leagueofmains` password: `aniviabestchamp`.
 
 ## Programming language and Frameworks
 
